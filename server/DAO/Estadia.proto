@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package estalagem;
+
+message Estalagem {
+    int32 comando = 1;
+    string locatario = 2;
+    string descricao = 3;
+    string preco = 4;
+}
+
+message AllEstalagens {
+    repeated Estalagem estalagem = 1;
+}
+
+message AllAvailableEstalagens {
+    int32 comando = 1;
+    string data1 = 2;
+    string data2 = 3;
+}
+
+message ReservarAlugar {
+    int32 comando = 1;
+    string locador = 2;
+    string data1 = 3;
+    string data2 = 4;
+}
+
+message IndexComando {
+    int32 comando = 1;
+}
+
+message IdentificadorDaPizza {
+    int32 indice = 1;
+}
+
+message IdString {
+    int32 indice = 1;
+    string msg = 2;
+    string exemplo = 3;
+}
+
+message Vazia { }
+
+service EstalagemService {
+    rpc ExibirComandos(IdString) returns (String);
+    rpc ListarTodasEstalagens (IndexComando) returns (AllEstalagens);
+    rpc ListarEstalagensDisponiveis(AllAvailableEstalagens) returns (AllEstalagens);
+    rpc CadastrarEstalagem (Estalagem) returns (Vazia);
+    rpc ReservarEstalagem (ReservarAlugar) returns (Vazia);
+    rpc AlugarEstalagem (ReservarAlugar) returns (Vazia);
+}
